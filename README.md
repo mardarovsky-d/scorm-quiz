@@ -3,9 +3,11 @@ This example represents SCORM-compliant question set (aka quiz) and was made wit
 
 You may use it as a blueprint for your projects. If you like the result you may give it a star :)
 #USAGE
+
 For testing purposes just download all files and add to archive (.zip). Then upload zip-file to any SCORM2004-compliant LMS (such as iSpring Learn, Learndash, Skillcast, Docebo etc.). Quiz was successfully tested on SCORM Cloud.
 
 #Editing
+
 All html markup is situated in index.html file. CSS folder contains only Bootstrap css files.
 
 All quiz logic is located in ./js/quiz.js. Example texts in question, answers and feedback are in Russian (sorry, folks, I'll make English translation a bit later).
