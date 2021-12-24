@@ -35,11 +35,10 @@ function setComplete(){
             success = scorm.set("cmi.success_status", "failed");
 
         //If the course was successfully set to "completed"...
-        if (completion) {
-            scorm.quit();
-        } else {
+        completion ?
+            scorm.quit() :
             handleError("Ошибка: Курс не может быть отмечен как пройденный!");
-        }
+
     } else {
         handleError("Ошибка: Курс не подключён к LMS");
     }
