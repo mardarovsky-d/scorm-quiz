@@ -28,11 +28,12 @@ function setComplete(){
         let max = scorm.set("cmi.score.max", maximum);
         let raw = scorm.set("cmi.score.raw", result);
         let completion = scorm.set("cmi.completion_status", "completed");
-        if (result >= minimum) {
-            let success = scorm.set("cmi.success_status", "passed");
-        } else {
-            let success = scorm.set("cmi.success_status", "failed");
-        }
+        let success;
+
+        result >= minimum ?
+            success = scorm.set("cmi.success_status", "passed") :
+            success = scorm.set("cmi.success_status", "failed");
+
         //If the course was successfully set to "completed"...
         if (completion) {
             scorm.quit();
