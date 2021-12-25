@@ -12,17 +12,16 @@ function initCourse(){
     lmsConnected = scorm.init();
     if (lmsConnected) {
         const completionStatus = scorm.get("cmi.completion_status");
-        if (completionStatus === "completed" || completionStatus === "passed") {
-            handleError("Вы уже прошли этот курс.");
-        }
-    } else {
-        handleError("Ошибка: Курс не может связаться с LMS");
+        const successStatus = scorm.get("cmi.success_status");
+        completionStatus === "completed" && successStatus === "passed" ?
+            handleError("Вы уже прошли этот курс.") :
+            handleError("Ошибка: Курс не может связаться с LMS");
     }
 }
 
 function setComplete(){
     if (lmsConnected) {
-        //... try setting the course status to "completed"
+        // All these parameters are needed for SCORM 2004 compliant LMS
         let scaled = scorm.set("cmi.score.scaled", result / maximum * 100);
         let min = scorm.set("cmi.score.min", "0");
         let max = scorm.set("cmi.score.max", maximum);
@@ -34,7 +33,7 @@ function setComplete(){
             success = scorm.set("cmi.success_status", "passed") :
             success = scorm.set("cmi.success_status", "failed");
 
-        //If the course was successfully set to "completed"...
+        // If the course was successfully set to "completed"...
         completion ?
             scorm.quit() :
             handleError("Ошибка: Курс не может быть отмечен как пройденный!");
@@ -44,8 +43,8 @@ function setComplete(){
     }
 }
 
-function initForm() {
-    let completeButton = document.getElementById("my-form");
+function initFinishButton() {
+    let completeButton = document.getElementById("complete-button");
     completeButton.addEventListener('click', function onClick(e) {
         e.preventDefault();
         setComplete();
@@ -56,5 +55,5 @@ function initForm() {
 
 window.onload = function () {
     initCourse();
-    initForm();
+    initFinishButton();
 }
